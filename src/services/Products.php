@@ -111,6 +111,11 @@ class Products extends Component
         }
     }
 
+    private function formatShopifyDate(?string $date = null) : ?string
+    {
+        return $date ? date('Y-m-d H:i:s', strtotime($date)) : null;
+    }
+
     /**
      * This takes the shopify data from the REST API and creates or updates a product element.
      *
@@ -129,17 +134,17 @@ class Products extends Component
             'shopifyId' => $product->id,
             'title' => $product->title,
             'bodyHtml' => $product->body_html,
-            'createdAt' => $product->created_at,
+            'createdAt' => $this->formatShopifyDate($product->created_at),
             'handle' => $product->handle,
             'images' => $product->images,
             'options' => $product->options,
             'productType' => $product->product_type,
-            'publishedAt' => $product->published_at,
+            'publishedAt' => $this->formatShopifyDate($product->published_at),
             'publishedScope' => $product->published_scope,
             'shopifyStatus' => $product->status,
             'tags' => $product->tags,
             'templateSuffix' => $product->template_suffix,
-            'updatedAt' => $product->updated_at,
+            'updatedAt' => $this->formatShopifyDate($product->updated_at),
             'variants' => $variants ?? $product->variants,
             'vendor' => $product->vendor,
             'metaFields' => $metaFields,
